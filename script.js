@@ -196,6 +196,25 @@
     );
   }
 
+  // In-page Book links: scroll to the embedded calendar (stay on site)
+  document.querySelectorAll('a[href="#book"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      const t = document.getElementById("book");
+      if (!t) return;
+      e.preventDefault();
+      if (nav && nav.classList.contains("open")) setNavOpen(false);
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const headerH = header ? header.offsetHeight : 120;
+      const top = t.getBoundingClientRect().top + window.scrollY - headerH - 8;
+      window.scrollTo({ top: Math.max(0, top), behavior: reduce ? "auto" : "smooth" });
+      try {
+        history.replaceState(null, "", `${location.pathname}${location.search}#book`);
+      } catch (_) {
+        /* ignore */
+      }
+    });
+  });
+
   // Home / brand / footer: always scroll to true page top
   // (hash #top on a sticky header often fails to move the page)
   const scrollToPageTop = (e) => {
@@ -213,38 +232,90 @@
     a.addEventListener("click", scrollToPageTop);
   });
 
-  // Hero: crossfade doctor → dental → clip3 under blue tint
-  const heroVids = [
-    document.getElementById("hero-video-a"),
-    document.getElementById("hero-video-b"),
-    document.getElementById("hero-video-c"),
-  ].filter(Boolean);
+  // Hero: crossfade clips before they end so nothing hard-loops
+  const heroVids = Array.from(document.querySelectorAll(".hero-video"));
   if (heroVids.length) {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const FADE_MS = 1600;
+    const MAX_SHOW_S = 10.5;
+    const TAIL_S = 1.8;
+    const MIN_SHOW_S = 3.4;
     const playSafe = (v) => {
       const p = v.play();
       if (p && typeof p.catch === "function") p.catch(() => {});
     };
+    heroVids.forEach((v) => {
+      v.loop = false;
+      v.muted = true;
+      v.playsInline = true;
+    });
     if (reduceMotion) {
       heroVids.forEach((v, i) => {
         v.pause();
         v.classList.toggle("is-active", i === 0);
       });
     } else {
-      playSafe(heroVids[0]);
-      // Warm preload the rest
-      heroVids.slice(1).forEach((v) => v.load());
       let idx = 0;
-      // Rotate every ~12s through all clips
-      window.setInterval(() => {
+      let switching = false;
+      const goNext = () => {
+        if (switching) return;
+        switching = true;
         const prev = heroVids[idx];
         idx = (idx + 1) % heroVids.length;
         const next = heroVids[idx];
+        try {
+          next.currentTime = 0.05;
+        } catch (_) {
+          /* ignore */
+        }
         playSafe(next);
         next.classList.add("is-active");
         prev.classList.remove("is-active");
-        window.setTimeout(() => prev.pause(), 1200);
-      }, 12000);
+        window.setTimeout(() => {
+          prev.pause();
+          try {
+            prev.currentTime = 0;
+          } catch (_) {
+            /* ignore */
+          }
+          switching = false;
+        }, FADE_MS + 120);
+      };
+      const maybeAdvance = (v) => {
+        if (!v.classList.contains("is-active") || switching) return;
+        const dur = v.duration;
+        if (!Number.isFinite(dur) || dur <= 0) return;
+        const shown = v.currentTime;
+        const remaining = dur - shown;
+        if (shown >= MIN_SHOW_S && (remaining <= TAIL_S || shown >= MAX_SHOW_S)) {
+          goNext();
+        }
+      };
+      heroVids.forEach((v) => {
+        v.addEventListener("timeupdate", () => maybeAdvance(v));
+        v.addEventListener("ended", () => {
+          if (v.classList.contains("is-active")) goNext();
+        });
+      });
+      playSafe(heroVids[0]);
+      const warmRest = () => {
+        heroVids.slice(1).forEach((v) => {
+          if (v.preload === "auto") return;
+          v.preload = "auto";
+          try {
+            v.load();
+          } catch (_) {
+            /* ignore */
+          }
+        });
+      };
+      const first = heroVids[0];
+      if (first.readyState >= 3) {
+        warmRest();
+      } else {
+        first.addEventListener("canplaythrough", warmRest, { once: true });
+        window.setTimeout(warmRest, 2500);
+      }
     }
   }
 
@@ -265,6 +336,141 @@
     reveals.forEach((el) => io.observe(el));
   } else {
     reveals.forEach((el) => el.classList.add("in"));
+  }
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+  // Pixel-based ticker: wrap by group width so the loop never jumps.
+  const productTrack = document.getElementById("product-track");
+  const productGroup = productTrack && productTrack.querySelector(".product-bar-group");
+  if (productTrack && productGroup && !reduceMotion) {
+    productTrack.style.animation = "none";
+    let x = 0;
+    let last = performance.now();
+    const speed = 52;
+    const step = (now) => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      const w = productGroup.getBoundingClientRect().width;
+      if (w > 1) {
+        x -= speed * dt;
+        while (x <= -w) x += w;
+        productTrack.style.transform = `translate3d(${x}px,0,0)`;
+      }
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  // Process connecting line
+  const processGrid = document.getElementById("process-grid");
+  if (processGrid) {
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      processGrid.classList.add("is-drawn");
+    } else {
+      const pio = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              processGrid.classList.add("is-drawn");
+              pio.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.35 }
+      );
+      pio.observe(processGrid);
+    }
+  }
+
+  // Scroll progress under header
+  const progress = document.getElementById("scroll-progress");
+  const updateProgress = () => {
+    if (!progress) return;
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - window.innerHeight;
+    const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+    progress.style.transform = `scaleX(${p})`;
+  };
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  updateProgress();
+
+  // Cursor glow on the page; a smaller sheen only while over the header
+  const glow = document.getElementById("cursor-glow");
+  const headerSheen = document.getElementById("header-sheen");
+  if (glow && finePointer && !reduceMotion) {
+    document.body.classList.add("has-pointer");
+    let gx = window.innerWidth / 2;
+    let gy = window.innerHeight / 2;
+    let tx = gx;
+    let ty = gy;
+    let on = false;
+    let overHeader = false;
+    window.addEventListener(
+      "pointermove",
+      (e) => {
+        if (e.pointerType && e.pointerType !== "mouse") return;
+        tx = e.clientX;
+        ty = e.clientY;
+        if (!on) {
+          on = true;
+          glow.classList.add("is-on");
+        }
+        const inHeader = !!(header && header.contains(e.target));
+        if (inHeader !== overHeader) {
+          overHeader = inHeader;
+          glow.classList.toggle("over-header", overHeader);
+          if (headerSheen) headerSheen.classList.toggle("is-on", overHeader);
+        }
+        if (overHeader && headerSheen && header) {
+          const r = header.getBoundingClientRect();
+          headerSheen.style.left = `${e.clientX - r.left}px`;
+          headerSheen.style.top = `${e.clientY - r.top}px`;
+        }
+      },
+      { passive: true }
+    );
+    window.addEventListener("pointerleave", () => {
+      on = false;
+      overHeader = false;
+      glow.classList.remove("is-on", "over-header");
+      if (headerSheen) headerSheen.classList.remove("is-on");
+    });
+    const tickGlow = () => {
+      gx += (tx - gx) * 0.12;
+      gy += (ty - gy) * 0.12;
+      glow.style.left = `${gx}px`;
+      glow.style.top = `${gy}px`;
+      requestAnimationFrame(tickGlow);
+    };
+    requestAnimationFrame(tickGlow);
+  }
+
+  // Card spotlight follows cursor
+  if (finePointer && !reduceMotion) {
+    document.querySelectorAll(".js-spot").forEach((card) => {
+      card.addEventListener("pointermove", (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        card.style.setProperty("--my", `${e.clientY - r.top}px`);
+      });
+    });
+  }
+
+  // Subtle magnetic pull on primary CTAs
+  if (finePointer && !reduceMotion) {
+    document.querySelectorAll(".btn-magnetic").forEach((btn) => {
+      btn.addEventListener("pointermove", (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) * 0.18;
+        const y = (e.clientY - r.top - r.height / 2) * 0.22;
+        btn.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      });
+      btn.addEventListener("pointerleave", () => {
+        btn.style.transform = "";
+      });
+    });
   }
 
   // Contact form → FormSubmit (reliable on mobile; no mailto client required)

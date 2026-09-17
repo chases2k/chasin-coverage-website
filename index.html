@@ -12,10 +12,6 @@
       content="Chasin Coverage: Medical, Life, Dental & Vision. Chase Tabor, Owner & Licensed Agent. Free 15-minute consult. Call 318-880-7508."
     />
     <title>Chasin Coverage | Quit Waitin' · Start Chasin'</title>
-    <!--
-      SITE_URL: update canonical / og:url / og:image absolute URLs when the live domain is finalized.
-      Currently set to the intended production host.
-    -->
     <link rel="canonical" href="https://chasincoverage.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://chasincoverage.com/" />
@@ -37,13 +33,21 @@
     <meta name="twitter:image" content="https://chasincoverage.com/assets/og-image.png" />
     <link rel="icon" href="assets/logo.webp" type="image/webp" />
     <link rel="icon" href="assets/logo.png" type="image/png" />
+    <link rel="preconnect" href="https://videos.pexels.com" crossorigin />
+    <link rel="dns-prefetch" href="https://videos.pexels.com" />
+    <link
+      rel="preload"
+      as="video"
+      href="https://videos.pexels.com/video-files/6129936/6129936-hd_1280_720_30fps.mp4"
+      type="video/mp4"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260803states34" />
+    <link rel="stylesheet" href="styles.css?v=20260917vid1" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -109,6 +113,7 @@
     </script>
   </head>
   <body>
+    <div id="cursor-glow" aria-hidden="true"></div>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header" id="top">
@@ -116,9 +121,7 @@
         <div class="container top-banner-inner">
           <p class="top-banner-text">
             <span class="top-banner-tag">Free</span>
-            <span class="top-banner-long"
-              >15‑minute consult · Medical, Life, Dental &amp; Vision · No pressure</span
-            >
+            <span class="top-banner-long">15‑minute consult · No pressure</span>
             <span class="top-banner-short">15‑min consult · No pressure</span>
           </p>
           <div class="top-banner-actions">
@@ -160,16 +163,8 @@
                 ✕
               </button>
             </div>
-            <!-- Book first in drawer: primary conversion path on mobile -->
-            <a
-              class="nav-drawer-book"
-              href="https://calendly.com/chasincoverage/15-minute-meeting"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Book my free 15‑min call</a
-            >
+            <a class="nav-drawer-book" href="#book">Book my free 15‑min call</a>
             <a class="nav-drawer-call" href="tel:+13188807508">Call 318-880-7508</a>
-            <a href="#top">Home</a>
             <a href="#fit">Who it's for</a>
             <a href="#services">Services</a>
             <a href="#process">How it works</a>
@@ -180,10 +175,8 @@
           </nav>
           <div class="header-actions">
             <a
-              href="https://calendly.com/chasincoverage/15-minute-meeting"
+              href="#book"
               class="nav-cta"
-              target="_blank"
-              rel="noopener noreferrer"
               aria-label="Book my free 15-minute call"
               ><span class="nav-cta-short">Book</span
               ><span class="nav-cta-long">Book free call</span></a
@@ -201,84 +194,70 @@
           </div>
         </div>
       </div>
+      <div class="header-sheen" id="header-sheen" aria-hidden="true"></div>
+      <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     </header>
 
     <main id="main">
-      <!-- HERO: original copy layout + soft curve + blue-tinted video (right) -->
       <section class="hero" aria-label="Chasin Coverage introduction">
         <div class="hero-media" aria-hidden="true">
           <video
             class="hero-video is-active"
             id="hero-video-a"
+            src="https://videos.pexels.com/video-files/6129936/6129936-hd_1280_720_30fps.mp4"
             muted
-            loop
             playsinline
             autoplay
-            preload="metadata"
-          >
-            <!-- GitHub Pages cannot serve Git LFS binaries; use media CDN for real MP4s -->
-            <source
-              src="https://media.githubusercontent.com/media/chases2k/chasin-coverage-website/main/assets/hero-doctor.mp4"
-              type="video/mp4"
-            />
-          </video>
+            preload="auto"
+          ></video>
           <video
             class="hero-video"
             id="hero-video-b"
+            src="https://videos.pexels.com/video-files/6997934/6997934-hd_1280_720_25fps.mp4"
             muted
-            loop
             playsinline
-            preload="metadata"
-          >
-            <source
-              src="https://media.githubusercontent.com/media/chases2k/chasin-coverage-website/main/assets/hero-dental.mp4"
-              type="video/mp4"
-            />
-          </video>
+            preload="none"
+          ></video>
           <video
             class="hero-video"
             id="hero-video-c"
+            src="https://videos.pexels.com/video-files/6130116/6130116-hd_1280_720_30fps.mp4"
             muted
-            loop
             playsinline
-            preload="metadata"
-          >
-            <source
-              src="https://media.githubusercontent.com/media/chases2k/chasin-coverage-website/main/assets/hero-clip3.mp4"
-              type="video/mp4"
-            />
-          </video>
+            preload="none"
+          ></video>
+          <video
+            class="hero-video"
+            id="hero-video-d"
+            src="https://videos.pexels.com/video-files/6998081/6998081-hd_1280_720_25fps.mp4"
+            muted
+            playsinline
+            preload="none"
+          ></video>
           <div class="hero-media-tint"></div>
         </div>
-        <!-- Decorative curve only: does not change copy layout -->
         <div class="hero-curve" aria-hidden="true"></div>
         <div class="container hero-grid">
           <div class="hero-copy reveal">
             <p class="eyebrow">Owner-operated · Licensed agent</p>
             <h1>
-              Quit Waitin’.<br />
-              <span class="grad">Start Chasin’.</span>
+              <span class="hero-line"><span>Quit Waitin’.</span></span>
+              <span class="hero-line"><span class="grad">Start Chasin’.</span></span>
             </h1>
             <p class="lead">
-              Clear options. Honest guidance. No runaround.
-              Medical, Life, Dental, and Vision explained in plain English so you
-              can decide with confidence.
+              You talk to Chase, not a call center.
             </p>
             <div class="hero-actions">
               <div class="cta-stack">
-                <a
-                  class="btn btn-primary btn-pulse"
-                  href="https://calendly.com/chasincoverage/15-minute-meeting"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <a class="btn btn-primary btn-pulse btn-magnetic" href="#book"
                   >Book my free 15‑min call</a
                 >
-                <p class="cta-micro">No obligation. No sales pitch. Just clarity.</p>
+                <p class="cta-micro">No obligation. 15 minutes.</p>
               </div>
               <a class="btn btn-ghost" href="tel:+13188807508">Call 318-880-7508</a>
             </div>
             <ul class="hero-trust">
-              <li>Medical · Life · Dental · Vision</li>
+              <li>Licensed in most states</li>
               <li>Talk to Chase directly</li>
             </ul>
             <div class="hero-social">
@@ -321,172 +300,146 @@
               </a>
             </div>
           </div>
-          <!-- Keeps original 2-col grid proportions; video shows through -->
           <div class="hero-side" aria-hidden="true"></div>
         </div>
       </section>
 
       <section class="product-bar" aria-label="Lines of coverage">
-        <div class="container product-bar-inner">
-          <span>Medical</span>
-          <span class="dot" aria-hidden="true">·</span>
-          <span>Life</span>
-          <span class="dot" aria-hidden="true">·</span>
-          <span>Dental</span>
-          <span class="dot" aria-hidden="true">·</span>
-          <span>Vision</span>
+        <div class="product-bar-viewport">
+          <div class="product-bar-track" id="product-track">
+            <ul class="product-bar-group">
+              <li>Medical</li>
+              <li>Life</li>
+              <li>Dental</li>
+              <li>Vision</li>
+            </ul>
+            <ul class="product-bar-group" aria-hidden="true">
+              <li>Medical</li>
+              <li>Life</li>
+              <li>Dental</li>
+              <li>Vision</li>
+            </ul>
+            <ul class="product-bar-group" aria-hidden="true">
+              <li>Medical</li>
+              <li>Life</li>
+              <li>Dental</li>
+              <li>Vision</li>
+            </ul>
+          </div>
         </div>
       </section>
 
-      <!-- FIT -->
       <section class="section" id="fit">
         <div class="container">
           <header class="section-head center reveal">
             <p class="eyebrow">Is this for you?</p>
-            <h2>You’re in the right place if you’re…</h2>
-            <p>
-              Same situations Chase helps with every week. If one of these is you,
-              book a free call and we’ll map your options.
-            </p>
+            <h2>This is for you if…</h2>
           </header>
           <div class="fit-grid">
-            <article class="fit-card reveal">
+            <article class="fit-card reveal js-spot">
+              <span class="fit-num" aria-hidden="true">01</span>
               <h3>Self-employed or 1099</h3>
-              <p>First time shopping coverage without an employer plan.</p>
+              <p>Shopping coverage without an employer plan.</p>
             </article>
-            <article class="fit-card reveal reveal-delay-1">
+            <article class="fit-card reveal reveal-delay-1 js-spot">
+              <span class="fit-num" aria-hidden="true">02</span>
               <h3>Recently lost coverage</h3>
-              <p>Job change, COBRA sticker shock, or a gap you need to close fast.</p>
+              <p>Job change, COBRA sticker shock, or a gap to close.</p>
             </article>
-            <article class="fit-card reveal reveal-delay-2">
+            <article class="fit-card reveal reveal-delay-2 js-spot">
+              <span class="fit-num" aria-hidden="true">03</span>
               <h3>Early retirement (before 65)</h3>
-              <p>Bridging to Medicare without guessing or overpaying.</p>
+              <p>Bridging to Medicare without guessing.</p>
             </article>
-            <article class="fit-card reveal">
+            <article class="fit-card reveal js-spot">
+              <span class="fit-num" aria-hidden="true">04</span>
               <h3>Small business owner</h3>
-              <p>Micro-groups and owners who need benefits that fit a real budget.</p>
+              <p>Benefits that fit a real budget, even 2-3 people.</p>
             </article>
-            <article class="fit-card reveal reveal-delay-1">
-              <h3>Want better networks / PPO options</h3>
-              <p>Tired of narrow networks or high out-of-pocket surprises.</p>
+            <article class="fit-card reveal reveal-delay-1 js-spot">
+              <span class="fit-num" aria-hidden="true">05</span>
+              <h3>Better networks / PPO</h3>
+              <p>Tired of narrow networks or surprise bills.</p>
             </article>
-            <article class="fit-card reveal reveal-delay-2">
-              <h3>Reviewing what you already have</h3>
-              <p>Before you auto-renew, check if a better fit exists for the same money.</p>
+            <article class="fit-card reveal reveal-delay-2 js-spot">
+              <span class="fit-num" aria-hidden="true">06</span>
+              <h3>Reviewing what you have</h3>
+              <p>Check fit before you auto-renew.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- SERVICES -->
       <section class="section section-alt" id="services">
         <div class="container">
           <header class="section-head reveal">
             <p class="eyebrow">What we cover</p>
-            <h2>Medical, Life, Dental, and Vision in one place</h2>
-            <p>
-              We shop options, explain the tradeoffs, and help you enroll so you’re
-              not guessing at open enrollment or after a life change.
-            </p>
+            <h2>One agent. Four lines of coverage.</h2>
+            <p>We shop the options, explain the tradeoffs, and enroll you.</p>
           </header>
           <div class="card-grid">
-            <article class="card reveal">
+            <article class="card reveal js-spot">
               <div class="card-icon" aria-hidden="true">+</div>
               <h3>Medical</h3>
-              <p>
-                Individual, family, and small-business health plans. Networks,
-                deductibles, and premiums explained without the fog.
-              </p>
+              <p>Individual, family, and small-business health plans. Networks and deductibles without the fog.</p>
             </article>
-            <article class="card reveal reveal-delay-1">
+            <article class="card reveal reveal-delay-1 js-spot">
               <div class="card-icon" aria-hidden="true">♥</div>
               <h3>Life</h3>
-              <p>
-                Protection for the people who count on you. Straightforward
-                options sized to your household and budget.
-              </p>
+              <p>Protection sized to your household and budget. Straightforward options.</p>
             </article>
-            <article class="card reveal reveal-delay-2">
+            <article class="card reveal reveal-delay-2 js-spot">
               <div class="card-icon" aria-hidden="true">◆</div>
               <h3>Dental</h3>
-              <p>
-                Preventive and full dental plans so routine care doesn’t turn
-                into a surprise bill.
-              </p>
+              <p>Preventive and full dental so routine care doesn’t become a surprise bill.</p>
             </article>
-            <article class="card reveal reveal-delay-3">
+            <article class="card reveal reveal-delay-3 js-spot">
               <div class="card-icon" aria-hidden="true">◎</div>
               <h3>Vision</h3>
-              <p>
-                Eye exams, lenses, and frames coverage that pairs cleanly with
-                your medical plan when you need it.
-              </p>
+              <p>Exams, lenses, and frames that pair cleanly with your medical plan.</p>
             </article>
           </div>
           <div class="card-grid card-grid-2 card-grid-follow">
-            <article class="card reveal">
+            <article class="card reveal js-spot">
               <div class="card-icon" aria-hidden="true">↻</div>
               <h3>Life-change help</h3>
-              <p>
-                New job, marriage, move, or loss of coverage. Special enrollment
-                windows move fast. We help you use them correctly.
-              </p>
+              <p>New job, marriage, move, or loss of coverage. We use the window correctly.</p>
             </article>
-            <article class="card reveal reveal-delay-1">
+            <article class="card reveal reveal-delay-1 js-spot">
               <div class="card-icon" aria-hidden="true">✓</div>
               <h3>Plan review</h3>
-              <p>
-                Already covered? We’ll review cost and fit before you renew on
-                autopilot. Medical and ancillary lines.
-              </p>
+              <p>Already covered? We check cost and fit before you renew on autopilot.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- HOW IT WORKS (pattern from The Health Advocate) -->
       <section class="section" id="process">
         <div class="container">
           <header class="section-head center reveal">
             <p class="eyebrow">Process</p>
             <h2>How it works</h2>
-            <p>Simple. No pressure. You’re in control the whole time.</p>
+            <p>Three steps. You’re in control the whole time.</p>
           </header>
-          <ol class="process-grid">
-            <li class="process-card reveal">
+          <ol class="process-grid" id="process-grid">
+            <li class="process-card reveal js-spot">
               <span class="process-num" aria-hidden="true">1</span>
-              <h3>Schedule a free consult</h3>
-              <p>
-                Book 15 minutes on Calendly. No obligation. Tell Chase what’s going
-                on (job change, family, business, budget).
-              </p>
+              <h3>Book 15 minutes</h3>
+              <p>Tell Chase what's going on: job change, family, business, budget.</p>
             </li>
-            <li class="process-card reveal reveal-delay-1">
+            <li class="process-card reveal reveal-delay-1 js-spot">
               <span class="process-num" aria-hidden="true">2</span>
-              <h3>Review your options</h3>
-              <p>
-                He compares real plan options for your state and situation so you
-                can see tradeoffs in plain English.
-              </p>
+              <h3>See your options</h3>
+              <p>Real plans for your state, compared in plain English.</p>
             </li>
-            <li class="process-card reveal reveal-delay-2">
+            <li class="process-card reveal reveal-delay-2 js-spot">
               <span class="process-num" aria-hidden="true">3</span>
-              <h3>Decide with confidence</h3>
-              <p>
-                Move forward only when it fits. Stay covered and keep Chase as a
-                resource when life changes again.
-              </p>
+              <h3>Decide when it fits</h3>
+              <p>Move forward only if it works. Keep Chase when life changes again.</p>
             </li>
           </ol>
           <div class="section-cta reveal">
-            <a
-              class="btn btn-primary"
-              href="https://calendly.com/chasincoverage/15-minute-meeting"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Book my free 15‑min call</a
-            >
-            <p class="cta-micro cta-micro-center">Free. No pressure. You’re in control.</p>
+            <a class="btn btn-primary btn-magnetic" href="#book">Book my free 15‑min call</a>
           </div>
         </div>
       </section>
@@ -496,31 +449,38 @@
           <header class="section-head center reveal">
             <p class="eyebrow">Client stories</p>
             <h2>What people say after working with Chase</h2>
-            <p>
-              Real talk, clear options, and a plan that fits. Not a pressure pitch.
-            </p>
           </header>
-          <div class="review-grid">
-            <article class="review-card reveal">
+          <div class="review-grid review-grid-4">
+            <article class="review-card review-card-featured reveal js-spot">
               <div class="stars" aria-label="5 stars">★★★★★</div>
               <p class="review-text">
-                “Chase made open enrollment actually make sense. I finally
-                understood my deductible instead of just picking the cheapest
-                option and hoping.”
+                "I was on the hunt for health insurance for months and ended up with a marketplace plan that didn't cover what we needed. Then Chase reached out and actually wanted to help. We now have a plan that covers us, he answers questions honestly, and he knows his stuff. If you need better health insurance, get in touch with Chase. I promise you won't regret it."
               </p>
               <div class="review-meta">
                 <span class="review-avatar" aria-hidden="true">JM</span>
+                <div>
+                  <strong>Julie Melder</strong>
+                  <span>Facebook review · Sept 2026</span>
+                </div>
+              </div>
+            </article>
+            <article class="review-card reveal reveal-delay-1 js-spot">
+              <div class="stars" aria-label="5 stars">★★★★★</div>
+              <p class="review-text">
+                "Chase made open enrollment actually make sense. I finally understood my deductible instead of just picking the cheapest option."
+              </p>
+              <div class="review-meta">
+                <span class="review-avatar" aria-hidden="true">JS</span>
                 <div>
                   <strong>Jessica M.</strong>
                   <span>Houston, TX · Family medical</span>
                 </div>
               </div>
             </article>
-            <article class="review-card reveal reveal-delay-1">
+            <article class="review-card reveal reveal-delay-2 js-spot">
               <div class="stars" aria-label="5 stars">★★★★★</div>
               <p class="review-text">
-                “Self-employed and drowning in options. He compared plans side by
-                side, no jargon, no rush. Booked the call and I'm glad I did.”
+                "Self-employed and drowning in options. He compared plans side by side, no jargon, no rush."
               </p>
               <div class="review-meta">
                 <span class="review-avatar" aria-hidden="true">DR</span>
@@ -530,25 +490,10 @@
                 </div>
               </div>
             </article>
-            <article class="review-card reveal reveal-delay-2">
+            <article class="review-card reveal reveal-delay-3 js-spot">
               <div class="stars" aria-label="5 stars">★★★★★</div>
               <p class="review-text">
-                “We needed dental and vision for the kids and life coverage for me.
-                Chase bundled it cleanly and stayed available after enrollment.”
-              </p>
-              <div class="review-meta">
-                <span class="review-avatar" aria-hidden="true">AL</span>
-                <div>
-                  <strong>Amanda L.</strong>
-                  <span>Baton Rouge, LA · Family</span>
-                </div>
-              </div>
-            </article>
-            <article class="review-card reveal">
-              <div class="stars" aria-label="5 stars">★★★★★</div>
-              <p class="review-text">
-                “Lost coverage after a job change. He moved fast on special
-                enrollment so we weren’t stuck uninsured for months.”
+                "Lost coverage after a job change. He moved fast on special enrollment so we weren't stuck uninsured."
               </p>
               <div class="review-meta">
                 <span class="review-avatar" aria-hidden="true">KT</span>
@@ -558,25 +503,10 @@
                 </div>
               </div>
             </article>
-            <article class="review-card reveal reveal-delay-1">
+            <article class="review-card reveal js-spot">
               <div class="stars" aria-label="5 stars">★★★★★</div>
               <p class="review-text">
-                “Small shop, three employees. Chase explained group vs individual
-                without talking down to us. Straight shooter.”
-              </p>
-              <div class="review-meta">
-                <span class="review-avatar" aria-hidden="true">SP</span>
-                <div>
-                  <strong>Marcus &amp; Nina</strong>
-                  <span>Tampa, FL · Small business</span>
-                </div>
-              </div>
-            </article>
-            <article class="review-card reveal reveal-delay-2">
-              <div class="stars" aria-label="5 stars">★★★★★</div>
-              <p class="review-text">
-                “I almost auto-renewed a plan that was wrong for us. Chase’s review
-                saved us money and got better network options for our doctors.”
+                "I almost auto-renewed a plan that was wrong for us. Chase's review saved us money and got better network options."
               </p>
               <div class="review-meta">
                 <span class="review-avatar" aria-hidden="true">CW</span>
@@ -590,77 +520,53 @@
         </div>
       </section>
 
-      <!-- FAQ -->
       <section class="section" id="faq">
         <div class="container faq-wrap">
           <header class="section-head reveal">
             <p class="eyebrow">FAQ</p>
             <h2>Straight answers before you book</h2>
-            <p class="muted">
-              The questions people ask most before they hop on a call.
-            </p>
           </header>
           <div class="faq-list">
             <details class="faq-item reveal" open>
               <summary>Do you charge a fee for consulting?</summary>
               <p>
-                No. Plan guidance and comparisons don’t come with an invoice to you.
-                Like most independent agents, compensation comes from carriers when
-                you enroll. Your job is to get clear options, not pay for a pitch.
+                No. Like most independent agents, compensation comes from carriers when you enroll. You don’t get an invoice for the guidance.
               </p>
             </details>
             <details class="faq-item reveal">
               <summary>What happens on the free 15‑minute call?</summary>
               <p>
-                You tell Chase your situation (state, household, budget, doctors,
-                timeline). He outlines next steps and whether he can help. No
-                pressure to buy on the call.
+                You tell Chase your situation: state, household, budget, doctors, timeline. He outlines next steps. No pressure to buy on the call.
               </p>
             </details>
             <details class="faq-item reveal">
               <summary>Can you help small businesses with only 2-3 people?</summary>
               <p>
-                Yes. Micro-groups and owner-only setups are common. Chase can walk
-                through group vs individual paths and what usually fits a smaller
-                team budget.
+                Yes. Micro-groups and owner-only setups are common. Chase walks through group vs individual and what usually fits the budget.
               </p>
             </details>
             <details class="faq-item reveal">
               <summary>Why use an agent instead of going straight to a carrier?</summary>
               <p>
-                One carrier only shows their own products. An independent agent can
-                compare across options for your state so you’re not stuck in one
-                company’s catalog.
+                One carrier only shows their own products. An independent agent compares across options for your state.
               </p>
             </details>
             <details class="faq-item reveal">
               <summary>Do I have to wait for open enrollment?</summary>
               <p>
-                <strong>No.</strong> Private insurance can be purchased any time
-                of year — you don’t have to wait for open enrollment. Marketplace
-                plans and some other pathways still have open-enrollment windows
-                (or special enrollment after a life event), but Chase can walk you
-                through private options that start when you need them. Book a free
-                call and we’ll map what fits your situation.
+                <strong>No.</strong> Private insurance can be purchased any time of year. Marketplace plans still have open-enrollment windows (or special enrollment after a life event). Chase will map what fits.
               </p>
             </details>
             <details class="faq-item reveal">
               <summary>What states do you serve?</summary>
               <p>
-                I can help in most states — everywhere except California,
-                Connecticut, Washington, Oregon, New Mexico, New York, New Jersey,
-                New Hampshire, Massachusetts, Maine, Minnesota, North Dakota,
-                Idaho, Hawaii, Rhode Island, and Alaska. Based in the Houston
-                area. Want to verify my license? Producer ID: 22123071 (that’s
-                the number regulators use to look agents up). Not sure if we can
-                help? Call or book a slot and ask.
+                Most states, everywhere except California, Connecticut, Washington, Oregon, New Mexico, New York, New Jersey, New Hampshire, Massachusetts, Maine, Minnesota, North Dakota, Idaho, Hawaii, Rhode Island, and Alaska. Based in the Houston area. Producer ID: 22123071 (for license verification). Not sure? Call or book a slot and ask.
               </p>
             </details>
           </div>
         </div>
       </section>
 
-      <!-- ABOUT -->
       <section class="section about-section" id="about">
         <div class="about-bg" aria-hidden="true">
           <div class="about-bg-glow about-bg-glow-a"></div>
@@ -670,33 +576,31 @@
         </div>
         <div class="container about-grid">
           <div class="about-photo-wrap reveal">
-            <picture>
-              <source srcset="assets/chase-tabor.webp" type="image/webp" />
-              <img
-                src="assets/chase-tabor.jpg"
-                alt="Chase Tabor, Owner and Licensed Agent at Chasin Coverage"
-                width="360"
-                height="440"
-                loading="lazy"
-              />
-            </picture>
-            <div class="about-photo-cap">
-              <strong>Chase Tabor</strong>
-              <span>Owner &amp; Licensed Agent</span>
+            <div class="about-photo-frame">
+              <picture>
+                <source srcset="assets/chase-tabor.webp" type="image/webp" />
+                <img
+                  src="assets/chase-tabor.jpg"
+                  alt="Chase Tabor, Owner and Licensed Agent at Chasin Coverage"
+                  width="360"
+                  height="440"
+                  loading="lazy"
+                />
+              </picture>
+              <div class="about-photo-cap">
+                <strong>Chase Tabor</strong>
+                <span>Owner &amp; Licensed Agent</span>
+              </div>
             </div>
           </div>
           <div class="about-copy reveal reveal-delay-1">
             <p class="eyebrow">About Chase</p>
             <h2>Owner-operated. You get me, not a script.</h2>
             <p class="about-lead">
-              I’m Chase Tabor, Owner &amp; Licensed Agent at Chasin Coverage.
-              I help individuals, families, and small businesses with Medical,
-              Life, Dental, and Vision, based in the Houston area.
+              I’m Chase Tabor. I help individuals, families, and small businesses with Medical, Life, Dental, and Vision, from the Houston area.
             </p>
             <p>
-              The job is simple: map what you actually need, compare real options
-              for your situation and budget, and explain the tradeoffs in plain
-              English. No call-center transfer. No pressure to buy on the first call.
+              Map what you need. Compare real options. Explain the tradeoffs. No call-center transfer. No pressure to buy on the first call.
             </p>
             <ul class="about-points">
               <li>Free 15-minute consults</li>
@@ -707,19 +611,12 @@
               Producer ID: 22123071 · Available for license verification
             </p>
             <div class="about-actions">
-              <a
-                class="btn btn-primary about-btn-primary"
-                href="https://calendly.com/chasincoverage/15-minute-meeting"
-                target="_blank"
-                rel="noopener noreferrer"
+              <a class="btn btn-primary about-btn-primary btn-magnetic" href="#book"
                 >Book my free 15‑min call</a
               >
-              <a class="btn btn-ghost about-btn-ghost" href="tel:+13188807508">Call Chase</a>
-              <a class="btn btn-ghost about-btn-ghost" href="#contact">Send a message</a>
+              <a class="btn btn-ghost about-btn-ghost" href="#contact-form">Send a message</a>
             </div>
-            <p class="cta-micro about-micro">No obligation. No sales pitch.</p>
           </div>
-          <!-- Own grid cell so text/pills never cover the brand mark -->
           <div class="about-logo-side reveal reveal-delay-2" aria-hidden="true">
             <img
               src="assets/logo-mark.png"
@@ -733,39 +630,36 @@
         </div>
       </section>
 
-      <!-- CONTACT / CONVERT -->
       <section class="section contact-section" id="contact">
-        <div class="container contact-grid">
-          <div class="reveal">
+        <div class="container">
+          <header class="section-head center reveal">
             <p class="eyebrow">Next step</p>
-            <h2>Book my free 15‑minute consult</h2>
-            <p class="muted">
-              Grab a Calendly slot, call, or send a note. No pressure. Just a
-              clear conversation about what you need.
-            </p>
-            <a
-              class="btn btn-primary calendly-cta btn-pulse"
-              href="https://calendly.com/chasincoverage/15-minute-meeting"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Book my free 15‑min call</a
-            >
-            <p class="cta-micro">No obligation. No sales pitch. Just clarity.</p>
+            <h2>Book a free 15‑minute consult</h2>
+            <p class="muted">Pick a time below. You stay on this page.</p>
+          </header>
+          <p class="calendly-note reveal">
+            Looking forward to connecting and seeing what I can do to help!
+            Please note: I cannot help in the states of CA, CT, WA, OR, NM, NY,
+            NJ, NH, MA, ME, MN, ND, ID, HI, RI, and AK. Please email me at
+            <a href="mailto:chasincoverage@gmail.com">chasincoverage@gmail.com</a>
+            or text
+            <a href="tel:+13188807508">318-880-7508</a>
+            with questions.
+          </p>
+          <div class="calendly-panel reveal" id="book">
+            <div
+              class="calendly-inline-widget"
+              data-url="https://calendly.com/chasincoverage/15-minute-meeting?hide_gdpr_banner=1&amp;hide_event_type_details=1&amp;background_color=f3f6fb&amp;text_color=0f1c2e&amp;primary_color=1a6fd4"
+              data-resize="true"
+              style="min-width: 320px; height: 700px"
+            ></div>
+          </div>
+          <div class="contact-grid">
+          <div class="reveal">
+            <p class="eyebrow">Other ways to reach Chase</p>
+            <h2>Call, email, or send a note</h2>
+            <p class="muted">Prefer not to book a slot? Phone and the form still work.</p>
             <div class="contact-direct" aria-label="Contact options">
-              <a
-                class="cd-row"
-                href="https://calendly.com/chasincoverage/15-minute-meeting"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span class="cd-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                </span>
-                <span class="cd-text">
-                  <span class="cd-label">Schedule</span>
-                  <span class="cd-value">Book on Calendly</span>
-                </span>
-              </a>
               <a class="cd-row" href="tel:+13188807508">
                 <span class="cd-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -822,7 +716,6 @@
             method="POST"
           >
             <h3 class="form-title">Or send a quick message</h3>
-            <!-- Honeypot: leave empty (spam bots often fill this) -->
             <input
               type="text"
               name="_gotcha"
@@ -910,13 +803,14 @@
             <button type="submit" class="btn btn-primary btn-block" id="contact-submit">Send message</button>
             <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
             <p class="fine">
-              Messages go to <strong>chasincoverage@gmail.com</strong> (no mail app needed).
-              Prefer a live slot?
-              <a href="https://calendly.com/chasincoverage/15-minute-meeting" target="_blank" rel="noopener noreferrer">Book 15 minutes</a>
-              or call
+              Goes to <strong>chasincoverage@gmail.com</strong>.
+              Or
+              <a href="#book">book a time above</a>
+              /
               <a href="tel:+13188807508">318-880-7508</a>.
             </p>
           </form>
+          </div>
         </div>
       </section>
     </main>
@@ -936,8 +830,7 @@
           </div>
         </div>
         <div class="footer-links">
-          <a href="#top">Home</a>
-          <a href="https://calendly.com/chasincoverage/15-minute-meeting" target="_blank" rel="noopener noreferrer">Book my free call</a>
+          <a href="#book">Book my free call</a>
           <a href="tel:+13188807508">318-880-7508</a>
           <a href="mailto:chasincoverage@gmail.com">chasincoverage@gmail.com</a>
           <a href="https://www.linkedin.com/in/ChasinCoverage" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -953,18 +846,12 @@
       </div>
     </footer>
 
-    <!-- Mobile sticky CTA: high leverage on long pages (shown after hero) -->
     <div class="sticky-cta" id="sticky-cta" hidden>
       <a class="sticky-cta-call" href="tel:+13188807508">Call</a>
-      <a
-        class="sticky-cta-book"
-        href="https://calendly.com/chasincoverage/15-minute-meeting"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Book my free call</a
-      >
+      <a class="sticky-cta-book" href="#book">Book my free call</a>
     </div>
 
-    <script src="script.js?v=20260803homeMicro"></script>
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <script src="script.js?v=20260917vid1"></script>
   </body>
 </html>

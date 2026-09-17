@@ -5,7 +5,7 @@ Static marketing site for **Chasin Coverage** (health insurance).
 ## Deploy notes (SEO / forms)
 
 - **Canonical & social URLs** use `https://chasincoverage.com/` - update in `index.html` if the live domain differs.
-- **OG image:** `assets/og-image.png` (1200×1200 logo on white). For best Facebook/LinkedIn previews, a 1200×630 landscape card is still ideal when you have one.
+- **OG image:** `assets/og-image.png` (1200×630 landscape). Meta tags match that size.
 - **Contact form** posts via [FormSubmit](https://formsubmit.co) AJAX to `chasincoverage@gmail.com`. First send may require confirming the activation email from FormSubmit. To use Formspree instead, change `FORM_ENDPOINT` in `script.js`.
 - **WebP:** `logo.webp`, `chase-tabor.webp` with PNG/JPEG fallbacks via `<picture>`.
 
@@ -29,7 +29,7 @@ npx --yes serve .
 |------|---------|
 | `index.html` | Page structure |
 | `styles.css` | Brand styling (navy + blue, matches logo) |
-| `script.js` | Mobile nav + contact form → email draft |
+| `script.js` | Mobile nav, motion, contact form → FormSubmit |
 | `assets/logo.png` | Your Chasin Coverage logo |
 
 ## Contact form
