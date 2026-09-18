@@ -2250,6 +2250,19 @@ body.has-sticky-cta {
   min-width: 320px;
   height: 700px;
   background: transparent !important;
+  color-scheme: light;
+}
+
+.calendly-fallback {
+  margin: 0 0 0.85rem;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #3a4d63;
+}
+
+.calendly-fallback a {
+  font-weight: 800;
 }
 
 .contact-grid {
