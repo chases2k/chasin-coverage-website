@@ -12,7 +12,7 @@
  */
 (() => {
   // ==== CONFIG ============================================================
-  const CHAT_ENDPOINT = ""; // e.g. "https://chasin-chat.your-name.workers.dev/chat"
+  const CHAT_ENDPOINT = "https://chasin-chat.chases3k.workers.dev"; // Gemini via Cloudflare Worker (key server-side)
   const GREETING =
     "Hi! I'm the Chasin' Coverage assistant. Ask me about Medical, Life, Dental, or Vision coverage — or the free 15-minute call with Chase.";
   const QUICK_REPLIES = [

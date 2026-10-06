@@ -6,16 +6,16 @@
  * returns { reply }. Deploy steps: see chat/SETUP.md.
  *
  * Secrets (wrangler secret put … or Dashboard → Settings → Variables):
- *   XAI_API_KEY   — from console.x.ai
+ *   XAI_API_KEY   — Gemini API key (Google AI Studio); name kept for compat
  * Optional vars:
- *   MODEL         — default "grok-4.7" (check docs.x.ai/developers/models
- *                    for the current model list)
+ *   MODEL         — default "gemini-3.5-flash-lite" (free-tier Gemini via
+ *                    OpenAI-compatible endpoint; fallback: gemini-3.1-flash-lite)
  *   ALLOWED_ORIGIN — default "https://chasincoverage.com" (localhost is
  *                    always allowed for dev)
  */
 
-const XAI_URL = "https://api.x.ai/v1/chat/completions";
-const DEFAULT_MODEL = "grok-4.7";
+const XAI_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+const DEFAULT_MODEL = "gemini-3.5-flash-lite";
 const MAX_TURNS = 8;          // last N messages forwarded (abuse + cost cap)
 const MAX_CHARS_PER_MSG = 600;
 
