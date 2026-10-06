@@ -298,17 +298,24 @@
         });
       });
       playSafe(heroVids[0]);
-      const warmRest = () => {
-        heroVids.slice(1).forEach((v) => {
-          if (v.preload === "auto") return;
-          v.preload = "auto";
-          try {
-            v.load();
-          } catch (_) {
-            /* ignore */
-          }
-        });
+      const saveData = !!(navigator.connection && navigator.connection.saveData);
+      // v2 perf: warm ONE clip at a time (chain on canplaythrough) instead of
+      // eagerly buffering all four — halves eager video bandwidth while
+      // keeping crossfades smooth. saveData users: no warming at all.
+      let warmIdx = 1;
+      const warmNext = () => {
+        if (saveData || warmIdx >= heroVids.length) return;
+        const v = heroVids[warmIdx++];
+        if (v.preload === "auto") return;
+        v.preload = "auto";
+        try {
+          v.load();
+        } catch (_) {
+          /* ignore */
+        }
+        v.addEventListener("canplaythrough", warmNext, { once: true });
       };
+      const warmRest = () => warmNext();
       const first = heroVids[0];
       if (first.readyState >= 3) {
         warmRest();
@@ -348,12 +355,22 @@
     productTrack.style.animation = "none";
     let x = 0;
     let last = performance.now();
+    // v2 perf: skip transform work while the marquee is off-screen
+    let marqueeVisible = true;
+    if ("IntersectionObserver" in window) {
+      marqueeVisible = false;
+      new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          marqueeVisible = entry.isIntersecting;
+        });
+      }).observe(productTrack);
+    }
     const speed = 52;
     const step = (now) => {
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       const w = productGroup.getBoundingClientRect().width;
-      if (w > 1) {
+      if (w > 1 && marqueeVisible) {
         x -= speed * dt;
         while (x <= -w) x += w;
         productTrack.style.transform = `translate3d(${x}px,0,0)`;
@@ -561,4 +578,104 @@
       }
     }
   });
+})();
+
+/* ============================================================
+   V2 UPGRADES — lazy Calendly, persona prefill, 3D tilt.
+   Same constraints: no new libraries, reduced-motion respected.
+   ============================================================ */
+(() => {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+  // Lazy-load the Calendly calendar as a plain iframe when it scrolls
+  // into view (drops the eager widget.js/css entirely).
+  const shell = document.getElementById("calendly-shell");
+  if (shell && shell.dataset.src) {
+    const mount = () => {
+      if (shell.querySelector("iframe")) return;
+      const iframe = document.createElement("iframe");
+      iframe.src = shell.dataset.src;
+      iframe.title = "Book a free 15-minute consult (Calendly)";
+      iframe.loading = "lazy";
+      iframe.allow = "camera; microphone; fullscreen";
+      iframe.addEventListener("load", () => iframe.classList.add("is-loaded"));
+      shell.appendChild(iframe);
+    };
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      mount();
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              mount();
+              io.disconnect();
+            }
+          });
+        },
+        { rootMargin: "300px 0px", threshold: 0 }
+      );
+      io.observe(shell);
+    }
+  }
+
+  // Persona cards prefill the "What do you need?" select before the
+  // existing #book smooth-scroll handler runs.
+  const needSelect = document.getElementById("need");
+  document.querySelectorAll("a[data-need]").forEach((card) => {
+    card.addEventListener("click", () => {
+      if (!needSelect || !card.dataset.need) return;
+      const match = Array.from(needSelect.options).find(
+        (o) => o.value === card.dataset.need || o.textContent.trim() === card.dataset.need
+      );
+      if (match) needSelect.value = match.value;
+    });
+  });
+
+  // Subtle pointer-tracking 3D tilt on marked cards (desktop only).
+  if (finePointer && !reduceMotion) {
+    document.querySelectorAll("[data-tilt]").forEach((el) => {
+      const MAX = 5;
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        el.style.setProperty("--ry", `${(px * MAX * 2).toFixed(2)}deg`);
+        el.style.setProperty("--rx", `${(-py * MAX * 2).toFixed(2)}deg`);
+      });
+      el.addEventListener("pointerleave", () => {
+        el.style.setProperty("--rx", "0deg");
+        el.style.setProperty("--ry", "0deg");
+      });
+    });
+  }
+})();
+
+/* v2: keep the marquee full-bleed on ANY screen — dynamically clone
+   groups until the track always covers viewport width + one spare group.
+   Runs for motion and reduced-motion visitors alike, re-fills on resize
+   and after fonts load. */
+(() => {
+  const track = document.getElementById("product-track");
+  const group = track && track.querySelector(".product-bar-group");
+  if (!track || !group) return;
+  const fill = () => {
+    const gw = group.getBoundingClientRect().width;
+    if (gw < 1) return;
+    const need = Math.ceil(window.innerWidth / gw) + 1;
+    let count = track.querySelectorAll(".product-bar-group").length;
+    while (count < need) {
+      const clone = group.cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      track.appendChild(clone);
+      count++;
+    }
+  };
+  fill();
+  let t;
+  window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(fill, 120); }, { passive: true });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(fill).catch(() => {});
+  }
 })();

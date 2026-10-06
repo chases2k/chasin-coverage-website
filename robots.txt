@@ -1,0 +1,34 @@
+# Chasin' Coverage — robots.txt
+# Welcomes search engines AND the AI answer engines people now ask
+# for recommendations ("who's a good health insurance agent in Houston?").
+
+User-agent: *
+Allow: /
+
+# OpenAI (ChatGPT training + search)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+
+# Google AI features (AI Overviews, Gemini grounding)
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://chasincoverage.com/sitemap.xml

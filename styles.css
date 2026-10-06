@@ -1690,7 +1690,7 @@ body.has-sticky-cta {
 }
 
 .stars {
-  color: #f59e0b;
+  color: var(--cyan); /* v2: was #f59e0b amber on live — brand-blue per no-amber call */
   letter-spacing: 0.08em;
   font-size: 0.95rem;
 }
@@ -3632,5 +3632,591 @@ body.has-pointer .header-sheen.is-on {
 
   body {
     background-attachment: scroll;
+  }
+}
+
+/* ============================================================
+   V2 UPGRADE LAYER — blue-family depth only, no new hues.
+   Clickable persona cards, hero proof badge, states details,
+   producer badge, reviews-more, lazy Calendly shell, 3D motion.
+   ============================================================ */
+
+/* Persona cards become real links with a "go" affordance + 3D tilt */
+.fit-grid {
+  perspective: 900px;
+}
+
+a.fit-card {
+  display: block;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a.fit-card:hover,
+a.fit-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  box-shadow: 0 16px 36px rgba(10, 61, 143, 0.14);
+}
+
+.fit-card .fit-go {
+  position: absolute;
+  top: 1.05rem;
+  right: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  color: var(--cyan-soft);
+  font-size: 0.85rem;
+  font-weight: 800;
+  transition: transform 0.28s var(--ease), background 0.28s var(--ease), color 0.28s var(--ease);
+}
+
+a.fit-card:hover .fit-go,
+a.fit-card:focus-visible .fit-go {
+  background: var(--grad-cta);
+  color: #fff;
+  transform: translateX(3px);
+}
+
+/* Pointer-tracking 3D tilt (script sets --rx / --ry) */
+[data-tilt] {
+  transform: perspective(700px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.18s ease-out;
+  will-change: transform;
+}
+
+/* Hero proof badge: 5.0 stars on Facebook */
+.hero-proof {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  width: fit-content;
+}
+
+.hero-proof-stars {
+  color: var(--cyan);
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+}
+
+.hero-proof strong {
+  color: var(--navy);
+  font-weight: 800;
+}
+
+/* Relocated excluded-states note under the State select */
+.states-details {
+  margin-top: 0.35rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: 10px;
+  padding: 0.55rem 0.8rem;
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+.states-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.states-details[open] summary {
+  color: var(--cyan-soft);
+}
+
+.states-details p {
+  margin: 0.5rem 0 0.15rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Producer ID as a trust badge with verify link */
+.producer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #eaf1fb;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.producer-badge::before {
+  content: "✓";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  background: var(--grad-cta);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.producer-badge a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 700;
+}
+
+.producer-badge a:hover {
+  color: #cfe2ff;
+}
+
+/* Reviews: read-all link row */
+.reviews-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.2rem;
+}
+
+/* Lazy Calendly shell: skeleton shimmer then iframe fade-in */
+.calendly-shell {
+  position: relative;
+  min-width: min(320px, 100%); /* never wider than its column on tiny screens */
+  min-height: 700px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #f3f6fb;
+}
+
+.calendly-shell .calendly-skeleton {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.92rem;
+  background:
+    linear-gradient(100deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0.85) 50%, rgba(255, 255, 255, 0) 80%),
+    #e9eff8;
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+.calendly-shell iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+  color-scheme: light;
+}
+
+.calendly-shell iframe.is-loaded {
+  opacity: 1;
+}
+
+/* About shield: gentle 3D sway behind the existing float */
+@keyframes logo3d-tilt {
+  0%, 100% { transform: rotateY(-11deg) rotateX(4deg); }
+  50% { transform: rotateY(11deg) rotateX(-3deg); }
+}
+
+.about-logo-side {
+  perspective: 700px;
+  transform-style: preserve-3d;
+}
+
+.about-logo-side img {
+  animation: float-blob 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about-logo-side {
+    animation: logo3d-tilt 9s ease-in-out infinite;
+  }
+}
+
+/* Plus heartbeat — v2: screen-blended glow over the baked-in cross in
+   assets/brand-chasin.png. The asset itself is untouched; the glow only
+   brightens the blue plus strokes (screen over white = invisible). */
+.brand-chasin-wrap {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.brand-chasin-wrap .brand-chasin-img {
+  position: relative;
+  z-index: 1;
+}
+
+.plus-spark {
+  position: absolute;
+  z-index: 2;
+  left: 93.3%;
+  top: 29.5%;
+  width: 24%;
+  height: 82%;
+  transform: translate(-50%, -50%) scale(0.55);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(150, 205, 255, 0.95) 0%,
+    rgba(59, 138, 239, 0.55) 38%,
+    rgba(59, 138, 239, 0) 72%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  filter: blur(1px);
+  opacity: 0;
+  animation: plus-heartbeat 5.6s ease-in-out infinite;
+}
+
+@keyframes plus-heartbeat {
+  0%,
+  74%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.55);
+  }
+  82% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  90% {
+    opacity: 0.45;
+    transform: translate(-50%, -50%) scale(0.92);
+  }
+  96% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plus-spark {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* ============================================================
+   CHAT WIDGET — corner assistant (Chasin' Coverage Assistant)
+   ============================================================ */
+.chat-widget {
+  position: fixed;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  z-index: 90;
+  font-family: var(--font);
+}
+
+/* FAB sits above the mobile sticky CTA when it's visible */
+body.has-sticky-cta .chat-widget {
+  bottom: calc(1.1rem + 3.6rem);
+}
+
+.chat-fab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: var(--grad-cta);
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(10, 61, 143, 0.38);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.chat-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(10, 61, 143, 0.44), 0 0 0 4px rgba(59, 138, 239, 0.16);
+}
+
+.chat-fab svg {
+  transition: opacity 0.15s var(--ease), transform 0.15s var(--ease);
+}
+
+.chat-fab .chat-fab-close {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  opacity: 0;
+  transition: opacity 0.15s var(--ease);
+}
+
+.chat-fab.is-open svg {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+.chat-fab.is-open .chat-fab-close {
+  opacity: 1;
+}
+
+.chat-panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.8rem);
+  width: min(23.5rem, calc(100vw - 2.2rem));
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(15, 40, 80, 0.22);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform-origin: bottom right;
+  animation: chat-in 0.22s var(--ease);
+}
+
+@keyframes chat-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 0.85rem;
+  background: var(--banner-bg);
+  color: #fff;
+}
+
+.chat-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--navy);
+  object-fit: contain;
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+.chat-head-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.chat-head-text strong {
+  font-family: var(--display);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.chat-head-text span {
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
+.chat-close {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.chat-close:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.chat-log {
+  height: 17rem;
+  overflow-y: auto;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--bg);
+  scrollbar-width: thin;
+}
+
+.chat-msg {
+  max-width: 85%;
+  padding: 0.55rem 0.75rem;
+  border-radius: 13px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.chat-msg-user {
+  align-self: flex-end;
+  background: var(--grad-cta);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-msg-assistant {
+  align-self: flex-start;
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-msg-assistant a {
+  font-weight: 600;
+}
+
+.chat-typing {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  padding: 0.65rem 0.8rem;
+}
+
+.chat-typing span {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--cyan);
+  opacity: 0.4;
+  animation: chat-blink 1.2s infinite;
+}
+
+.chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes chat-blink {
+  0%, 80%, 100% { opacity: 0.35; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-2px); }
+}
+
+.chat-chips {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  padding: 0.55rem 0.85rem;
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+
+.chat-chip {
+  border: 1px solid var(--border-strong);
+  background: var(--bg);
+  color: var(--cyan-soft);
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.32rem 0.6rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.chat-chip:hover {
+  background: var(--grad-cta);
+  border-color: transparent;
+  color: #fff;
+}
+
+.chat-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+
+.chat-form input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.55rem 0.7rem;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.chat-form input:focus {
+  outline: 2px solid rgba(26, 111, 212, 0.5);
+  outline-offset: 1px;
+}
+
+.chat-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--grad-cta);
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.chat-send:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.chat-fine {
+  margin: 0;
+  padding: 0.45rem 0.85rem 0.6rem;
+  font-size: 0.68rem;
+  color: var(--muted);
+  background: #fff;
+  border-top: 1px solid var(--border);
+}
+
+/* Chat panel: hidden guard (author display:flex overrides the UA [hidden]
+   rule, so the panel stayed visible — this restores real hiding) + the
+   quick close animation that pairs with chat-in. */
+.chat-panel[hidden] {
+  display: none;
+}
+
+.chat-panel.is-closing {
+  animation: chat-out 0.18s var(--ease) forwards;
+}
+
+@keyframes chat-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
   }
 }
