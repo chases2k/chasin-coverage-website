@@ -4,6 +4,7 @@
 
 User-agent: *
 Allow: /
+Disallow: /tiktok/
 
 # OpenAI (ChatGPT training + search)
 User-agent: GPTBot
