@@ -6,6 +6,6 @@ main = "tiktok-worker.js"
 compatibility_date = "2026-10-01"
 
 [vars]
-TIKTOK_CLIENT_KEY = "REPLACE_WITH_CLIENT_KEY"
+TIKTOK_CLIENT_KEY = "sbawjtgg20frwkm57p"
 REDIRECT_URI = "https://chasincoverage.com/tiktok/callback/"
 ALLOWED_ORIGIN = "https://chasincoverage.com"

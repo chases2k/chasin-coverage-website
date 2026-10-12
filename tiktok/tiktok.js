@@ -1,5 +1,5 @@
 // Unlisted TikTok demo — shared helpers. Set WORKER to the deployed worker URL.
-const TIKTOK_WORKER = "https://chasin-tiktok.REPLACE-SUBDOMAIN.workers.dev";
+const TIKTOK_WORKER = "https://chasin-tiktok.chases3k.workers.dev";
 const SCOPES = "user.info.basic,video.publish";
 
 function $(id) { return document.getElementById(id); }
