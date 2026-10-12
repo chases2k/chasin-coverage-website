@@ -75,3 +75,23 @@ Upload the whole folder to any static host:
 
 Colors follow the shield logo (deep navy + electric blue). Owner: **Chase Tabor**.  
 Can serve most states except: CA, CT, WA, OR, NM, NY, NJ, NH, MA, ME, MN, ND, ID, HI, RI, AK.
+
+## TikTok demo page (unlisted, for TikTok app review)
+
+`/tiktok/` (Connect TikTok) → TikTok consent → `/tiktok/callback/` (shows display name, "Post test video").
+Not linked anywhere, `noindex,nofollow`, not in `sitemap.xml`, disallowed in `robots.txt`.
+
+- **Redirect URI to register** (TikTok dev portal → app → Login Kit): `https://chasincoverage.com/tiktok/callback/` (exact, with trailing slash)
+- **Scopes:** `user.info.basic`, `video.publish` (add Login Kit + Content Posting API with Direct Post enabled)
+- **Flow:** Login Kit web (authorization code + CSRF `state`; TikTok web flow does not use PKCE). Token exchange happens in `tiktok-worker.js`; the browser only ever holds an AES-GCM-encrypted session blob (sessionStorage, tab-scoped, ≤24h).
+- **Posting:** Direct Post, `FILE_UPLOAD`, single chunk, `privacy_level: SELF_ONLY`. On the callback page you pick a small local MP4 (<50 MB); the browser sends it to the worker, which calls `creator_info/query` → `video/init` → PUTs the bytes → the page polls `status/fetch`. (FILE_UPLOAD avoids PULL_FROM_URL's URL-prefix verification, and repo MP4s are Git LFS pointers on Pages.)
+
+### Deploy the worker (Cloudflare)
+```bash
+npx wrangler login                                   # browser sign-in to Cloudflare
+# put the real client key in wrangler.tiktok.toml [vars] TIKTOK_CLIENT_KEY (public value)
+npx wrangler secret put TIKTOK_CLIENT_SECRET -c wrangler.tiktok.toml   # paste secret at prompt
+openssl rand -hex 32 | npx wrangler secret put TOKEN_KEY -c wrangler.tiktok.toml
+npx wrangler deploy -c wrangler.tiktok.toml          # prints https://chasin-tiktok.<sub>.workers.dev
+```
+Then set `TIKTOK_WORKER` in `tiktok/tiktok.js` to that URL and push the site. No custom route is needed (workers.dev URL, CORS-locked to chasincoverage.com + localhost).

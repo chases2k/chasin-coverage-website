@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Connect TikTok — Chasin' Coverage</title>
+<link rel="stylesheet" href="/tiktok/tiktok.css">
+</head>
+<body>
+<main>
+  <img class="logo" src="/assets/logo-128.png" alt="Chasin' Coverage">
+  <h1>Chasin' Coverage × TikTok</h1>
+  <p>Connect the @chasincoverage TikTok account so Chasin' Coverage can publish its own videos.</p>
+  <div class="card">
+    <p>Requested permissions:<br><strong>user.info.basic</strong> (your display name) and <strong>video.publish</strong> (post videos to your account).</p>
+    <button id="connect" type="button">Connect TikTok</button>
+    <div id="status" class="status"></div>
+  </div>
+  <p><small><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></small></p>
+</main>
+<script src="/tiktok/tiktok.js"></script>
+<script>$("connect").addEventListener("click", connectTikTok);</script>
+</body>
+</html>

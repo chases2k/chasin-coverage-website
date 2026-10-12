@@ -1,0 +1,11 @@
+# Cloudflare Worker for the unlisted /tiktok/ demo. Deploy:
+#   npx wrangler deploy -c wrangler.tiktok.toml
+# Secrets (never commit): see README.md → "TikTok demo page".
+name = "chasin-tiktok"
+main = "tiktok-worker.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+TIKTOK_CLIENT_KEY = "sbawjtgg20frwkm57p"
+REDIRECT_URI = "https://chasincoverage.com/tiktok/callback/"
+ALLOWED_ORIGIN = "https://chasincoverage.com"
