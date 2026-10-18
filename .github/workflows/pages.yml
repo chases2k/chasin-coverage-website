@@ -36,3 +36,36 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # Tell Bing (IndexNow: Bing, Copilot, ChatGPT search, DuckDuckGo) about blog pages this push added or changed, once
+  # they're live. A separate job that can't block or break the deploy above. Run it by hand (Actions > Run workflow)
+  # to resubmit every blog page.
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ping IndexNow
+        env:
+          BEFORE: ${{ github.event.before }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          KEY=$(ls | grep -E '^[0-9a-f]{32}\.txt$' | head -1 | sed 's/\.txt$//')
+          if [ -z "$KEY" ]; then echo "No IndexNow key file at the site root."; exit 0; fi
+          if [ "$EVENT" = "workflow_dispatch" ] && [ -f blog/posts.json ]; then
+            URLS=$( (echo "https://chasincoverage.com/blog/"; jq -r '.[].slug | "https://chasincoverage.com/blog/\(.)/"' blog/posts.json) )
+          else
+            if [ -n "$BEFORE" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then FILES=$(git diff --name-only "$BEFORE" HEAD); else FILES=$(git show --name-only --format= HEAD); fi
+            URLS=$(echo "$FILES" | grep -E '^blog/(.+/)?index\.html$' | sed -E 's#index\.html$##; s#^#https://chasincoverage.com/#')
+          fi
+          if [ -z "$URLS" ]; then echo "No blog pages changed in this push."; exit 0; fi
+          BODY=$(printf '%s\n' $URLS | jq -R . | jq -s --arg key "$KEY" '{host: "chasincoverage.com", key: $key, keyLocation: ("https://chasincoverage.com/" + $key + ".txt"), urlList: .}')
+          echo "$BODY"
+          curl -s -w "\nIndexNow answered HTTP %{http_code}\n" -X POST "https://api.indexnow.org/indexnow" -H "content-type: application/json; charset=utf-8" -d "$BODY"
