@@ -30,3 +30,9 @@ Licensed in 30+ states: most US states except CA, CT, WA, OR, NM, NY, NJ, NH, MA
 - Chase cannot quote specific premiums or plan details without the client's state, household, and doctors — that comparison happens on the free call.
 - Enrollments and personal information are never handled through the website or chat; the site's assistant routes people to the free consult.
 - Producer ID 22123071 is published for license verification.
+
+<!-- HQ blog list: start -->
+## Blog
+Plain-English answers from Chase Tabor, newest first (all posts: https://chasincoverage.com/blog/):
+- [How Self-Employed People Can Deduct Health Insurance Premiums](https://chasincoverage.com/blog/how-self-employed-people-can-deduct-health-insurance-premiums/): Yes, in most cases you can. If you work for yourself and show a profit, the IRS lets you deduct what you pay for health insurance for yourself, your...
+<!-- HQ blog list: end -->
