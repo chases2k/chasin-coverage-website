@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="only light" />
+    <script>(function(){var t=null;try{t=localStorage.getItem("cc-blog-theme")}catch(e){}if(t!=="dark"&&t!=="light")t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(t==="dark")document.querySelector('meta[name="color-scheme"]').setAttribute("content","dark")})();</script>
     <meta name="theme-color" content="#0a3d8f" />
     <title>How Self-Employed People Can Deduct Health Insurance Premiums | Chasin Coverage</title>
     <meta name="description" content="Yes, in most cases you can. If you work for yourself and show a profit, the IRS lets you deduct what you pay for health insurance for yourself, your..." />
@@ -112,6 +113,22 @@
       .blog-tile.feature{grid-column:1/-1;padding:32px;background:linear-gradient(135deg,#ffffff 0%,#eef5ff 100%);border-color:var(--border-strong)}
       .blog-tile.feature .blog-tile-title{font-size:clamp(24px,3.4vw,30px)}
       .blog-empty{padding:32px;border-radius:20px;background:var(--bg-white);border:1px dashed var(--border-strong);color:var(--muted);text-align:center}
+      .blog-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 22px}
+      .blog-top .blog-crumb{margin:0}
+      .blog-theme{display:inline-flex;align-items:center;flex:none;padding:8px 14px 8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);color:#fff;font:600 13.5px/1 var(--font);cursor:pointer;transition:background .2s var(--ease),border-color .2s var(--ease)}
+      .blog-theme:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
+      .blog-theme:focus-visible{outline:2px solid #fff;outline-offset:3px}
+      .blog-theme span{display:inline-flex;align-items:center;gap:8px}
+      .blog-theme svg{width:16px;height:16px;flex:none}
+      .blog-theme .to-light,html[data-theme=dark] .blog-theme .to-dark{display:none}
+      html[data-theme=dark] .blog-theme .to-light{display:inline-flex}
+      html[data-theme=dark]{color-scheme:dark!important;background:#0a1322!important}
+      html[data-theme=dark] body{background-color:#0a1322!important;background-image:linear-gradient(rgba(120,170,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(120,170,255,.045) 1px,transparent 1px)!important;background-size:var(--page-grid) var(--page-grid)!important}
+      html[data-theme=dark] main{--bg:#0f1a2c;--bg-white:#121e33;--bg-soft:#1b2b45;--border:rgba(140,180,255,.14);--border-strong:rgba(120,170,255,.34);--text:#d3deee;--muted:#9aaccb;--navy:#f2f6fd;--cyan:#6fb0ff;--shadow:0 18px 44px rgba(0,0,0,.45);--shadow-sm:0 6px 18px rgba(0,0,0,.35);color:var(--text)}
+      html[data-theme=dark] .blog-card{box-shadow:0 30px 70px rgba(0,0,0,.5)}
+      html[data-theme=dark] .blog-answer{background:linear-gradient(180deg,#15294a,#111f37)}
+      html[data-theme=dark] .blog-tile.feature{background:linear-gradient(135deg,#15284a 0%,#101d34 100%)}
+      html[data-theme=dark] .blog-btn:not(.ghost),html[data-theme=dark] .blog-btn:not(.ghost):hover{color:#0b1f3a}
       @media (max-width:720px){
         .blog-hero{padding:34px 18px 112px}
         .blog-byline .blog-when{padding-left:0;border-left:0;width:100%}
@@ -194,7 +211,7 @@
     <main id="main">
       <header class="blog-hero">
         <div class="blog-hero-in">
-          <nav class="blog-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">›</span><a href="/blog/">Blog</a></nav>
+          <div class="blog-top"><nav class="blog-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">›</span><a href="/blog/">Blog</a></nav><button type="button" class="blog-theme"><span class="to-dark"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Dark mode</span><span class="to-light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>Light mode</span></button></div>
           <p class="blog-eyebrow">Chasin Coverage Blog</p>
           <h1>How Self-Employed People Can Deduct Health Insurance Premiums</h1>
           <div class="blog-byline"><picture><source srcset="/assets/chase-tabor.webp" type="image/webp" /><img src="/assets/chase-tabor.jpg" alt="Chase Tabor" width="46" height="46" loading="lazy" decoding="async" /></picture><div><strong>Chase Tabor</strong><span>Licensed health insurance agent</span></div><div class="blog-when"><span><time datetime="2026-10-18">October 18, 2026</time></span><span>4 min read</span></div></div>
@@ -277,5 +294,6 @@
         .observe(document.documentElement, { subtree: true, childList: true });
     </script>
     <script src="/chat.js" defer></script>
+    <script>(function(){var root=document.documentElement,meta=document.querySelector('meta[name="color-scheme"]'),mq=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)");function set(t){root.setAttribute("data-theme",t);meta.setAttribute("content",t==="dark"?"dark":"only light")}function saved(){try{return localStorage.getItem("cc-blog-theme")}catch(e){return null}}document.querySelectorAll(".blog-theme").forEach(function(b){b.addEventListener("click",function(){var t=root.getAttribute("data-theme")==="dark"?"light":"dark";set(t);try{localStorage.setItem("cc-blog-theme",t)}catch(e){}})});if(mq&&mq.addEventListener)mq.addEventListener("change",function(e){var s=saved();if(s!=="dark"&&s!=="light")set(e.matches?"dark":"light")})})();</script>
   </body>
 </html>
