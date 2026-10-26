@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://chasincoverage.com/blog/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -45,6 +45,12 @@
   <url>
     <loc>https://chasincoverage.com/blog/dental-insurance-when-youre-self-employed-how-it-works-with/</loc>
     <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chasincoverage.com/blog/vision-insurance-when-youre-self-employed-what-marketplace-plans-cover/</loc>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
