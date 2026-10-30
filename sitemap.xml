@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://chasincoverage.com/blog/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -69,6 +69,12 @@
   <url>
     <loc>https://chasincoverage.com/blog/you-can-preview-2027-marketplace-plans-right-now-before-open/</loc>
     <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chasincoverage.com/blog/is-there-still-a-penalty-for-not-having-health-insurance-what-self/</loc>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
