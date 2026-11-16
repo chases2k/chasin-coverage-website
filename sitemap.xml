@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://chasincoverage.com/blog/</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -93,6 +93,12 @@
   <url>
     <loc>https://chasincoverage.com/blog/marketplace-premiums-are-up-about-13-for-2027-what-to-check-before-you/</loc>
     <lastmod>2026-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chasincoverage.com/blog/earn-too-much-for-marketplace-help-health-insurance-options-for-self/</loc>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
