@@ -45,7 +45,7 @@
       .blog-hero h1{color:#fff;font-size:clamp(32px,5.2vw,52px);line-height:1.08;letter-spacing:-.03em;margin:0 0 26px;max-width:22ch}
       .blog-hero .blog-lede{max-width:60ch;margin:-8px 0 0;font-size:18px;line-height:1.6;color:rgba(255,255,255,.85)}
       .blog-byline{display:flex;flex-wrap:wrap;gap:12px 14px;align-items:center;font-size:15px;color:rgba(255,255,255,.82)}
-      .blog-byline img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.85);box-shadow:0 6px 18px rgba(0,0,0,.25)}
+      .blog-byline .blog-face{width:46px;height:46px;border:2px solid rgba(255,255,255,.85);box-shadow:0 6px 18px rgba(0,0,0,.25)}
       .blog-byline strong{display:block;color:#fff;font-weight:700;line-height:1.2}
       .blog-byline span{display:block;font-size:13.5px;line-height:1.3}
       .blog-byline .blog-when{padding-left:14px;border-left:1px solid rgba(255,255,255,.3)}
@@ -90,7 +90,10 @@
       .blog-faq-a p:last-child,.blog-faq-a ul:last-child{margin:0}
       .blog-faq-a a{color:var(--cyan);text-decoration:underline;text-underline-offset:3px}
       .blog-author{display:flex;gap:20px;align-items:center;margin:52px 0 0;padding:26px 0 0;border-top:1px solid var(--border)}
-      .blog-author img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 4px var(--bg-white),0 0 0 6px rgba(26,111,212,.25)}
+      .blog-author .blog-face{width:84px;height:84px;box-shadow:0 0 0 4px var(--bg-white),0 0 0 6px rgba(26,111,212,.25)}
+      /* Chase's photo is 923x2000, full length: the circle shows the head-and-shoulders square at x 90, y 249, side 762 */
+      .blog-face{display:block;flex:none;border-radius:50%;overflow:hidden}
+      .blog-face img{display:block;max-width:none;width:calc(923 / 762 * 100%);height:calc(2000 / 762 * 100%);margin:calc(-249 / 762 * 100%) 0 0 calc(-90 / 762 * 100%)}
       .blog-author p{margin:0;color:var(--muted);font-size:15.5px;line-height:1.5}
       .blog-author .blog-label{margin-bottom:6px}
       .blog-author-name{font:800 21px/1.2 var(--display)!important;color:var(--navy)!important;margin:0 0 4px!important}
@@ -149,7 +152,7 @@
         .blog-index{grid-template-columns:1fr}
         .blog-cta-actions{min-width:0}
         .blog-author{align-items:flex-start}
-        .blog-author img{width:64px;height:64px}
+        .blog-author .blog-face{width:64px;height:64px}
       }
     </style>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"You Can Preview 2027 Marketplace Plans Right Now, Before Open Enrollment Opens November 1","description":"You don't have to wait until Sunday to see what's coming. HealthCare.gov already lets you preview Marketplace health plans and estimated prices for...","datePublished":"2026-10-29","dateModified":"2026-10-29","mainEntityOfPage":"https://chasincoverage.com/blog/you-can-preview-2027-marketplace-plans-right-now-before-open/","url":"https://chasincoverage.com/blog/you-can-preview-2027-marketplace-plans-right-now-before-open/","timeRequired":"PT4M","image":"https://chasincoverage.com/assets/chase-tabor.jpg","author":{"@type":"Person","name":"Chase Tabor","jobTitle":"Licensed health insurance agent","url":"https://chasincoverage.com/#about","worksFor":{"@type":"InsuranceAgency","name":"Chasin Coverage"}},"publisher":{"@type":"InsuranceAgency","name":"Chasin Coverage","url":"https://chasincoverage.com/","logo":"https://chasincoverage.com/assets/logo.png","telephone":"+1-318-880-7508"}}</script>
@@ -223,7 +226,7 @@
           <div class="blog-top"><nav class="blog-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">›</span><a href="/blog/">Blog</a></nav><button type="button" class="blog-theme"><span class="to-dark"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Dark mode</span><span class="to-light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>Light mode</span></button></div>
           <p class="blog-eyebrow">Chasin Coverage Blog</p>
           <h1>You Can Preview 2027 Marketplace Plans Right Now, Before Open Enrollment Opens November 1</h1>
-          <div class="blog-byline"><picture><source srcset="/assets/chase-tabor.webp" type="image/webp" /><img src="/assets/chase-tabor.jpg" alt="Chase Tabor" width="46" height="46" loading="lazy" decoding="async" /></picture><div><strong>Chase Tabor</strong><span>Licensed health insurance agent</span></div><div class="blog-when"><span><time datetime="2026-10-29">October 29, 2026</time></span><span>4 min read</span></div></div>
+          <div class="blog-byline"><picture class="blog-face"><source srcset="/assets/chase-tabor.webp" type="image/webp" /><img src="/assets/chase-tabor.jpg" alt="Chase Tabor" width="46" height="46" loading="lazy" decoding="async" /></picture><div><strong>Chase Tabor</strong><span>Licensed health insurance agent</span></div><div class="blog-when"><span><time datetime="2026-10-29">October 29, 2026</time></span><span>4 min read</span></div></div>
         </div>
       </header>
       <div class="blog-shell">
@@ -259,7 +262,7 @@
             <details><summary>When do I need to enroll for coverage that starts January 1?</summary><div class="blog-faq-a"><p>By December 15, according to HealthCare.gov and state regulators.</p></div></details>
             <details><summary>How do I know I'm on the real HealthCare.gov site?</summary><div class="blog-faq-a"><p>Look for the .gov address and the lock icon or https:// in your browser's address bar. Regulators warn that some lookalike sites collect your information for marketers.</p></div></details>
           </section>
-          <aside class="blog-author" aria-label="About the author"><picture><source srcset="/assets/chase-tabor.webp" type="image/webp" /><img src="/assets/chase-tabor.jpg" alt="Chase Tabor" width="84" height="84" loading="lazy" decoding="async" /></picture><div><p class="blog-label">Written by</p><p class="blog-author-name">Chase Tabor</p><p>Licensed health insurance agent serving clients in 30+ states</p><a href="/#about">More about Chase →</a></div></aside>
+          <aside class="blog-author" aria-label="About the author"><picture class="blog-face"><source srcset="/assets/chase-tabor.webp" type="image/webp" /><img src="/assets/chase-tabor.jpg" alt="Chase Tabor" width="84" height="84" loading="lazy" decoding="async" /></picture><div><p class="blog-label">Written by</p><p class="blog-author-name">Chase Tabor</p><p>Licensed health insurance agent serving clients in 30+ states</p><a href="/#about">More about Chase →</a></div></aside>
         </article>
         <aside class="blog-cta-band" aria-label="Book a call">
           <div><p class="blog-label">Free 15-minute call</p><h2>Let's look at it together</h2><p>If you'd like a second set of eyes on what you find, I'm glad to walk through it with you in plain words. The consult costs nothing, and there's no pressure.</p></div>
@@ -267,7 +270,7 @@
         </aside>
         <section class="blog-more" aria-labelledby="more-title">
           <h2 id="more-title">Keep reading</h2>
-          <div class="blog-grid"><a class="blog-tile" href="/blog/deductible-vs-out-of-pocket-maximum-what-each-one-means-when-you-buy/"><span class="blog-tile-meta">October 28, 2026 · 4 min read</span><span class="blog-tile-title">Deductible vs Out-of-Pocket Maximum: What Each One Means When You Buy Your Own Coverage</span><span class="blog-tile-desc">Your deductible is what you pay for covered care before your plan starts sharing the cost. Your out-of-pocket maximum is the most you'll pay for...</span><span class="blog-tile-more">Read the article →</span></a><a class="blog-tile" href="/blog/senators-question-insurers-about-760-000-marketplace-cancellations-how/"><span class="blog-tile-meta">October 27, 2026 · 4 min read</span><span class="blog-tile-title">Senators Question Insurers About 760,000 Marketplace Cancellations: How to Check Your Own Coverage</span><span class="blog-tile-desc">If you buy your own health insurance through HealthCare.gov, take five minutes this week to log in and confirm your plan is still active. Then open...</span><span class="blog-tile-more">Read the article →</span></a><a class="blog-tile" href="/blog/vision-insurance-when-youre-self-employed-what-marketplace-plans-cover/"><span class="blog-tile-meta">October 26, 2026 · 4 min read</span><span class="blog-tile-title">Vision Insurance When You're Self-Employed: What Marketplace Plans Cover and What They Don't</span><span class="blog-tile-desc">If you work for yourself, your kids' vision care is already part of every Marketplace health plan, but your own may not be. HealthCare.gov says all...</span><span class="blog-tile-more">Read the article →</span></a></div>
+          <div class="blog-grid"><a class="blog-tile" href="/blog/earn-too-much-for-marketplace-help-health-insurance-options-for-self/"><span class="blog-tile-meta">November 16, 2026 · 6 min read</span><span class="blog-tile-title">Earn Too Much for Marketplace Help? Health Insurance Options for Self-Employed Families</span><span class="blog-tile-desc">If your household income is above 400% of the federal poverty level, you get no premium tax credit for 2027, so any Marketplace insurance plan costs...</span><span class="blog-tile-more">Read the article →</span></a><a class="blog-tile" href="/blog/marketplace-premiums-are-up-about-13-for-2027-what-to-check-before-you/"><span class="blog-tile-meta">November 5, 2026 · 4 min read</span><span class="blog-tile-title">Marketplace Premiums Are Up About 13% for 2027: What to Check Before You Renew</span><span class="blog-tile-desc">If you buy your own health coverage, don't let last year's plan roll forward without a fresh look. Open Enrollment is already open, and KFF reports...</span><span class="blog-tile-more">Read the article →</span></a><a class="blog-tile" href="/blog/term-vs-whole-life-insurance-how-to-choose-when-youre-self-employed/"><span class="blog-tile-meta">November 4, 2026 · 5 min read</span><span class="blog-tile-title">Term vs Whole Life Insurance: How to Choose When You're Self-Employed</span><span class="blog-tile-desc">For most self-employed people, the choice comes down to how long you need the coverage. Term life covers you for a set number of years and pays your...</span><span class="blog-tile-more">Read the article →</span></a></div>
         </section>
       </div>
     </main>
