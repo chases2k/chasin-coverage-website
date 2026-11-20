@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://chasincoverage.com/blog/</loc>
-    <lastmod>2026-11-19</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -117,6 +117,12 @@
   <url>
     <loc>https://chasincoverage.com/blog/running-a-food-truck-or-small-food-business-how-health-insurance-works/</loc>
     <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chasincoverage.com/blog/self-employed-with-income-that-changes-month-to-month-how-to-choose-a/</loc>
+    <lastmod>2026-11-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
