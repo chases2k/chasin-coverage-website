@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://chasincoverage.com/blog/</loc>
-    <lastmod>2026-11-22</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -129,6 +129,12 @@
   <url>
     <loc>https://chasincoverage.com/blog/self-employed-and-working-across-several-counties-how-to-check-that/</loc>
     <lastmod>2026-11-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chasincoverage.com/blog/leaving-a-job-to-work-for-yourself-cobra-texas-state-continuation-or/</loc>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
