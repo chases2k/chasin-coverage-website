@@ -679,3 +679,21 @@
     document.fonts.ready.then(fill).catch(() => {});
   }
 })();
+
+/* Load tap-events.js on pages that include script.js without a direct tag (e.g. blog pages). */
+(() => {
+  try {
+    if (
+      window.__ccTapEventsBound ||
+      document.querySelector('script[src*="tap-events.js"]')
+    ) {
+      return;
+    }
+    const s = document.createElement("script");
+    s.src = "/tap-events.js?v=20261123v1";
+    s.defer = true;
+    document.head.appendChild(s);
+  } catch (_) {
+    /* ignore */
+  }
+})();
